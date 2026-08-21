@@ -1,0 +1,9 @@
+[project]
+name = "agents"
+version = "1.0.0"
+description = "HiredLabs Agents"
+readme = "README.md"
+authors = [
+  { name = "Jeff Stock", email = "jeff.stock@hiredlabs.org" },
+]
+license = { text = "GPL-3.0" }
