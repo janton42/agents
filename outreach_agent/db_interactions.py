@@ -1,16 +1,14 @@
 import sqlite3
 import csv
-import os
-import json
-
+from pathlib import Path
 
 # --- Load existing emails from spreadsheet ---
 
 def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
     existing_emails = set()
 
-    csv_path = sp_file_path
-    if os.path.exists(csv_path):
+    csv_path = Path(sp_file_path)
+    if csv_path.exists():
         with open(csv_path, newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
             for row in reader:
@@ -19,7 +17,7 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
                     existing_emails.add(email.strip().lower())
 
     # --- Set up db ---
-    conn = sqlite3.connect(db_file_path)
+    conn = sqlite3.connect(str(db_file_path))
     cur = conn.cursor()
 
     cur.execute("""
@@ -27,7 +25,6 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             org_name TEXT,
             contact_email TEXT UNIQUE,
-            social_links TEXT,
             justification TEXT
         )
     """)
@@ -51,8 +48,8 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
             continue
 
         cur.execute(
-            "INSERT INTO candidates (org_name, contact_email, social_links, justification) VALUES (?, ?, ?, ?)",
-            (c.get("org_name"), email, json.dumps(c.get("social_links")), c.get("justification"))
+            "INSERT INTO candidates (org_name, contact_email, justification) VALUES (?, ?, ?)",
+            (c.get("org_name"), email, c.get("justification"))
         )
         existing_emails.add(email)
         inserted += 1
