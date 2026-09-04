@@ -1,15 +1,15 @@
 import os
-
 from tavily import TavilyClient
 from dotenv import load_dotenv
-# --- Environment Variables ---
-
-load_dotenv()
-tavily_key = os.getenv('TAVILY_API_KEY')
 
 # --- Tool definition ---
 
-def web_search(query: str) -> str:
+def web_search(query: str) -> dict:
+    # Load environment variables at runtime, not at module import
+    load_dotenv()
+    tavily_key = os.getenv('TAVILY_API_KEY')
+
+    # Initialize client at runtime, not at module import
     client = TavilyClient(api_key=tavily_key)
     results = client.search(query=query, max_results=5)
     return results

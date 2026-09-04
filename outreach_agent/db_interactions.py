@@ -3,6 +3,7 @@ import csv
 import os
 import json
 
+
 # --- Load existing emails from spreadsheet ---
 
 def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
@@ -17,7 +18,7 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
                 if email:
                     existing_emails.add(email.strip().lower())
 
-# --- Set up db ---
+    # --- Set up db ---
     conn = sqlite3.connect(db_file_path)
     cur = conn.cursor()
 
@@ -31,14 +32,14 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
         )
     """)
 
-# --- Load existing emails already in db ---
+    # --- Load existing emails already in db ---
 
     cur.execute("SELECT contact_email FROM candidates")
     existing_emails.update(
         row[0].strip().lower() for row in cur.fetchall() if row[0]
     )
 
-# --- Filter and insert ---
+    # --- Filter and insert ---
 
     inserted = 0
     skipped = 0

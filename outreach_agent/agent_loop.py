@@ -1,8 +1,8 @@
 import ollama
 import json
 
-from tools import tool_schema, web_search
-from system_prompt import system_prompt
+from .tools import tool_schema, web_search
+from .system_prompt import system_prompt
 
 
 # --- Agent loop ---

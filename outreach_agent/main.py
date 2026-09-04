@@ -1,6 +1,6 @@
-from db_interactions import coordinate_candidate_db
-from agent_loop import agent_loop
-from response_parser import web_search_parser
+from .db_interactions import coordinate_candidate_db
+from .agent_loop import agent_loop
+from .response_parser import web_search_parser
 
 
 class OutreachAgent:
