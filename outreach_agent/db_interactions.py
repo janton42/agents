@@ -23,6 +23,8 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
     cur.execute("""
         CREATE TABLE IF NOT EXISTS candidates (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
+            first_name TEXT,
+            last_name TEXT,
             org_name TEXT,
             contact_email TEXT UNIQUE,
             justification TEXT
@@ -48,13 +50,13 @@ def coordinate_candidate_db(candidates, sp_file_path, db_file_path):
             continue
 
         cur.execute(
-            "INSERT INTO candidates (org_name, contact_email, justification) VALUES (?, ?, ?)",
-            (c.get("org_name"), email, c.get("justification"))
+            "INSERT INTO candidates (first_name, last_name, org_name, contact_email, justification) VALUES (?, ?, ?, ?, ?)",
+            (c.get('first_name'), c.get('last_name'), c.get("org_name"), email, c.get("justification"))
         )
         existing_emails.add(email)
         inserted += 1
 
     conn.commit()
     conn.close()
-    confirmation_message = f"Inserted: {inserted}, Skipped (duplicate/missing email): {skipped}"
+    confirmation_message = f"Inserted: {inserted} into 'candidates' table,\nSkipped (duplicate/missing email): {skipped}"
     return confirmation_message
