@@ -15,7 +15,7 @@ def agent_loop():
 
     while True:
         response = ollama.chat(
-            model="minimax-m3:cloud",
+            model="gemma4:31b:cloud",
             messages=messages,
             tools=tools
         )

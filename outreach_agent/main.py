@@ -9,6 +9,7 @@ class OutreachAgent:
         self.sp_file_path = kwargs['sp_file_path']
         self.final_output = None
         self.candidates = None
+        self.confirmation = None
 
     def run_agent_loop(self):
         self.final_output = agent_loop()
@@ -17,12 +18,17 @@ class OutreachAgent:
         self.candidates = web_search_parser(self.final_output)
 
     def save_to_db(self):
-        coordinate_candidate_db(self.candidates, self.db_file_path, self.sp_file_path)
+        self.confirmation = coordinate_candidate_db(self.candidates, self.db_file_path, self.sp_file_path)
 
     def execute_search(self):
         self.run_agent_loop()
         self.parse_web_search()
         self.save_to_db()
+        if self.confirmation:
+            print(self.confirmation)
+        else:
+            print('Failed... You suck... Or I do...')
+            print('Blame AI.')
 
 if __name__ == '__main__':
     agent = OutreachAgent(
@@ -40,3 +46,11 @@ if __name__ == '__main__':
         print(menu_options[i])
     print()
     command = int(input('Enter the number of your choice:\t'))
+    if command == 1:
+        agent.execute_search()
+    elif command == 2:
+        print('Good bye.')
+        print()
+    else:
+        print('Invalid command')
+        print('Loser...')
