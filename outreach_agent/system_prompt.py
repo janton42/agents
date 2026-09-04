@@ -6,6 +6,8 @@ CRITERION: A valid candidate is an employee or volunteer at any organization tha
 assistance programs).
 
 For each valid candidate you find, gather these fields:
+- first_name
+- last_name
 - org_name
 - contact_email
 - justification (one sentence on why this person and their org fit the criterion)
@@ -23,6 +25,8 @@ Use the web_search tool to find candidates and verify each one meets the criteri
 Stop searching once you have found exactly 10 valid candidates. Do not continue searching after reaching 10.
 
 Return the final list as structured JSON: a list of objects with keys 
+first_name,
+last_name,
 org_name, 
 contact_email, 
 justification. 
