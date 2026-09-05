@@ -1,4 +1,4 @@
-system_prompt = """You are a research assistant helping a nonprofit find employees or volunteers at veteran-serving 
+outreach_agent_system_prompt = """You are a research assistant helping a nonprofit find employees or volunteers at veteran-serving 
 organizations for outreach partnerships.
 
 CRITERION: A valid candidate is an employee or volunteer at any organization that serves veterans in some capacity

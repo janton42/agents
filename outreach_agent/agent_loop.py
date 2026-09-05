@@ -1,21 +1,20 @@
-import ollama
 import json
 
-from .tools import tool_schema, web_search
-from .system_prompt import system_prompt
+from utils.tools import outreach_agent_tool_schema, web_search
+from .system_prompt import outreach_agent_system_prompt
 
 
 # --- Agent loop ---
-def agent_loop(api_key):
-    tools = [tool_schema]
+def agent_loop(api_key, model, provider):
+    tools = [outreach_agent_tool_schema]
     messages = [
-        {"role": "system", "content": system_prompt},
+        {"role": "system", "content": outreach_agent_system_prompt},
         {"role": "user", "content": "Find 10 veteran-serving organizations for outreach partnerships."}
     ]
 
     while True:
-        response = ollama.chat(
-            model="gemma4:31b:cloud",
+        response = provider.chat(
+            model=model,
             messages=messages,
             tools=tools
         )
