@@ -7,12 +7,13 @@ class OutreachAgent:
     def __init__(self, **kwargs):
         self.db_file_path = kwargs['db_file_path']
         self.sp_file_path = kwargs['sp_file_path']
+        self.api_key = kwargs['api_key']
         self.final_output = None
         self.candidates = None
         self.confirmation = None
 
     def run_agent_loop(self):
-        self.final_output = agent_loop()
+        self.final_output = agent_loop(self.api_key)
 
     def parse_web_search(self):
         self.candidates = web_search_parser(self.final_output)

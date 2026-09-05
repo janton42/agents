@@ -6,7 +6,7 @@ from .system_prompt import system_prompt
 
 
 # --- Agent loop ---
-def agent_loop():
+def agent_loop(api_key):
     tools = [tool_schema]
     messages = [
         {"role": "system", "content": system_prompt},
@@ -31,7 +31,7 @@ def agent_loop():
         for call in tool_calls:
             if call["function"]["name"] == "web_search":
                 args = call["function"]["arguments"]
-                result = web_search(args["query"])
+                result = web_search(args["query"], api_key)
 
                 messages.append({
                     "role": "tool",
