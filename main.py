@@ -14,7 +14,7 @@ agent_options = [
     '2. Funding Research Agent',
 ]
 
-
+db_file_path = BASE_DIR / '.db' / 'research.db'
 def main():
     print('Available Agents:')
     for i in range(len(agent_options)):
@@ -29,7 +29,7 @@ def main():
             api_key=api_key,
             provider=llama,
             model=model,
-            db_file_path=BASE_DIR / 'outreach_agent' / 'dev_db' / 'outreach_candidates.db',
+            db_file_path=db_file_path,
             sp_file_path=BASE_DIR / 'outreach_agent' / 'inputs' / 'community_partners.csv',
         )
         agent.execute_search()
@@ -41,7 +41,7 @@ def main():
             api_key=api_key,
             provider=llama,
             model=model,
-            db_file_path=BASE_DIR / 'funding_agent' / 'dev_db' / 'funding_candidates.db',
+            db_file_path=db_file_path,
         )
         agent.execute_search()
 
