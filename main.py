@@ -2,6 +2,7 @@ import os
 import ollama as llama
 
 from outreach_agent.outreach_agent import OutreachAgent
+from funding_agent.funding_agent import FundingAgent
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -33,10 +34,17 @@ def main():
         )
         agent.execute_search()
 
-    elif choice == 2:
-        # api_key = os.getenv('TAVILY_API_KEY')
-        # model = os.getenv('MODEL')
-        pass
+    elif choice == '2':
+        api_key = os.getenv('TAVILY_API_KEY')
+        model = os.getenv('MODEL')
+        agent = FundingAgent(
+            api_key=api_key,
+            provider=llama,
+            model=model,
+            db_file_path=BASE_DIR / 'funding_agent' / 'dev_db' / 'funding_candidates.db',
+        )
+        agent.execute_search()
+
     else:
         print('Invalid command')
         print('Loser...')

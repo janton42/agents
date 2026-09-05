@@ -3,10 +3,10 @@ from utils.response_parser import web_search_parser
 from .db_interactions import coordinate_candidate_db
 from .agent_loop import agent_loop
 
-class OutreachAgent:
+
+class FundingAgent:
     def __init__(self, **kwargs):
         self.db_file_path = kwargs['db_file_path']
-        self.sp_file_path = kwargs['sp_file_path']
         self.model = kwargs['model']
         self.api_key = kwargs['api_key']
         self.provider = kwargs['provider']
@@ -27,7 +27,6 @@ class OutreachAgent:
     def save_to_db(self):
         self.confirmation = coordinate_candidate_db(
             self.candidates,
-            self.sp_file_path,
             self.db_file_path,
         )
 
